@@ -38,6 +38,9 @@ console.log(authData);
   if (!response.ok) {
     throw json({message: 'User not authenticated'}, {status: 500})
   }
+  const resData = await response.json();
+  const token = resData.token;
+  localStorage.setItem('token', token);
 
   return redirect('/')
 }
