@@ -38,9 +38,16 @@ console.log(authData);
   if (!response.ok) {
     throw json({message: 'User not authenticated'}, {status: 500})
   }
+
+  // Retrive token from backend and store it on localStorage.
   const resData = await response.json();
   const token = resData.token;
   localStorage.setItem('token', token);
+  
+  // create expiration time of 1 hour and store it localStorage.
+  const expiration = new Date();
+  expiration.setHours(expiration.getHours() + 1);
+  localStorage.setItem('expiration', expiration.toISOString());
 
   return redirect('/')
 }

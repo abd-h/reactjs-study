@@ -78,11 +78,13 @@ export async function loader({ request, params }) {
 }
 
 export async function action({ params, request }) {
+  console.log(request.method);
   const eventId = params.eventId;
   const token = getAuthToken();
   const response = await fetch('http://localhost:8080/events/' + eventId, {
     method: request.method,
     headers: {
+      'Content-Type': 'application/json',
       'Authorization': 'Bearer ' + token,
     }
   });
